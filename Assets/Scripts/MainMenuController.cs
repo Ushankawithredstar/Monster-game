@@ -5,15 +5,11 @@ public class MainMenuController : MonoBehaviour
 {
     public void PlayGame()
     {
-        SceneManager.LoadScene("Gameplay");
-
         int selectedChar =
             int.Parse(UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name);
 
-        int[] a = new int[10];
+        GameManager.instance.CharIndex = selectedChar;
 
-        a[selectedChar] = 10;
-
-        Debug.Log("Button pressed.");
+        SceneManager.LoadScene("Gameplay");
     }
 }

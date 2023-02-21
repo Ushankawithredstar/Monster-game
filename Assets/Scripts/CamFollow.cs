@@ -17,7 +17,9 @@ public class CamFollow : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindWithTag("Player").transform;
+        //player = GameObject.FindWithTag("Player").transform;
+
+        Debug.Log("Selected index: " + GameManager.instance.CharIndex);
     }
 
     // Update is called once per frame
