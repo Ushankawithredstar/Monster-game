@@ -1,11 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class CamFollow : MonoBehaviour
 {
 
-    private Transform player;
+    private static Transform player;
+    public static Transform Player
+    { 
+        get { return player; }
+        set { player = value; }
+    }
 
     private Vector3 tempPos;
 
@@ -14,12 +18,13 @@ public class CamFollow : MonoBehaviour
 
     [SerializeField]
     private float maxX;
+
     // Start is called before the first frame update
     void Start()
     {
-        //player = GameObject.FindWithTag("Player").transform;
+        player = GameObject.FindWithTag("Player").transform;
 
-        Debug.Log("Selected index: " + GameManager.instance.CharIndex);
+        //Debug.Log("Selected index: " + GameManager.instance.CharIndex);
     }
 
     // Update is called once per frame

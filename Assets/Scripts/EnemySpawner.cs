@@ -23,7 +23,7 @@ public class EnemySpawner : MonoBehaviour
 
     IEnumerator SpawnMonsters()
     {
-        while (true) //loop line
+        while (true) //loop
         {
             yield return new WaitForSeconds(Random.Range(1, 5));
 

@@ -4,25 +4,23 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField]
-    float moveForce = 10f;
+    [SerializeField] private float moveForce = 10f;
 
-    [SerializeField]
-    float ForceJump = 11f;
+    [SerializeField] private float ForceJump = 11f;
 
-    float movementX;
+    private float movementX;
 
     public Rigidbody2D myBody;
 
     private SpriteRenderer sr;
 
     private Animator anim;
-    private string WALK_ANIMATION = "Walk";
+    private readonly string WALK_ANIMATION = "Walk";
 
     private bool grounded = true;
 
-    private string _ground = "Ground";
-    string enem_tag = "Enemy";
+    private readonly string _ground = "Ground";
+    private readonly string enem_tag = "Enemy";
 
     private void Awake()
     {
@@ -33,18 +31,17 @@ public class Player : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        PlayerMoveKeeb();
+        PlayerMoveKeyboard();
         AnimatePlayer();
         PlayerJump();
     }
 
-    void PlayerMoveKeeb()
+    void PlayerMoveKeyboard()
     {
-        movementX = Input.GetAxisRaw("Horizontal"); //gets input from the keyboard I assume
-
-        transform.position += new Vector3(movementX, 0f, 0f) * Time.deltaTime * moveForce; //the line for moving the character
+        movementX = Input.GetAxisRaw("Horizontal");
+        transform.position += moveForce * Time.deltaTime * new Vector3(movementX, 0f, 0f);
     }
 
     void AnimatePlayer()
@@ -77,19 +74,14 @@ public class Player : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag(_ground))
-        {
             grounded = true;
-        }
 
         if (collision.gameObject.CompareTag(enem_tag))
-        {
             Destroy(gameObject);
-        }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnDestroy()
     {
-        if(collision.gameObject.CompareTag(enem_tag))
-            Destroy(gameObject);
+        Invoke(nameof(GameplayUIController.RestartButton), 5f);
     }
 }
