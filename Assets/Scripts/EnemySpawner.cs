@@ -16,14 +16,15 @@ public class EnemySpawner : MonoBehaviour
     private int randomSide;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         StartCoroutine(SpawnMonsters());
     }
 
+    //Monster spawner.
     IEnumerator SpawnMonsters()
     {
-        while (true) //loop
+        while (true)
         {
             yield return new WaitForSeconds(Random.Range(1, 5));
 
@@ -32,19 +33,20 @@ public class EnemySpawner : MonoBehaviour
 
             spawnedMonster = Instantiate(monsterReference[randomIndex]);
 
-            //left side
+            //From left to right.
             if (randomSide == 0)
             {
                 spawnedMonster.transform.position = leftPos.position;
                 spawnedMonster.GetComponent<Momster>().speed = Random.Range(4, 10);
             }
-            else //right side
+            //From right to left.
+            else
             {
                 spawnedMonster.transform.position = rightPos.position;
                 spawnedMonster.GetComponent<Momster>().speed = -Random.Range(4, 10);
 
                 spawnedMonster.transform.localScale = new Vector3(-1f, 1f, 1f);
             }
-        } //while loop
+        }
     }
 }

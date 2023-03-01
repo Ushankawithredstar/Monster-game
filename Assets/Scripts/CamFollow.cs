@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class CamFollow : MonoBehaviour
@@ -13,14 +12,12 @@ public class CamFollow : MonoBehaviour
 
     private Vector3 tempPos;
 
-    [SerializeField]
-    private float minX;
+    [SerializeField] private float minX;
 
-    [SerializeField]
-    private float maxX;
+    [SerializeField] private float maxX;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         player = GameObject.FindWithTag("Player").transform;
 
@@ -28,9 +25,8 @@ public class CamFollow : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-
         if (!player)
             return;
 
@@ -38,14 +34,11 @@ public class CamFollow : MonoBehaviour
         tempPos.x = player.position.x;
 
         if (tempPos.x < minX) //fixes the camera position near the level borders
-        {
             tempPos.x = minX;
-        }
 
         if (tempPos.x > maxX) 
-        { 
             tempPos.x = maxX;
-        }
+
         transform.position = tempPos;
     }
 }

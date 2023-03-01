@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -25,7 +23,7 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         myBody.GetComponent<Rigidbody2D>();
-        anim= GetComponent<Animator>();
+        anim = GetComponent<Animator>();
 
         sr = GetComponent<SpriteRenderer>();
     }
@@ -33,44 +31,43 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        PlayerMoveKeyboard();
+        MovePlayer();
         AnimatePlayer();
         PlayerJump();
     }
 
-    void PlayerMoveKeyboard()
+    private void MovePlayer()
     {
         movementX = Input.GetAxisRaw("Horizontal");
         transform.position += moveForce * Time.deltaTime * new Vector3(movementX, 0f, 0f);
     }
 
-    void AnimatePlayer()
+    private void AnimatePlayer()
     {
-        if (movementX > 0) //we're going to the left side
+        if (movementX > 0)
         {
             anim.SetBool(WALK_ANIMATION, true);
-            sr.flipX = false; //facing during animation
+            sr.flipX = false;
         }
-        else if (movementX < 0) //we're going to the right side.
+        else if (movementX < 0)
         {
             anim.SetBool(WALK_ANIMATION, true);
             sr.flipX = true;
         }
         else
-        {
             anim.SetBool(WALK_ANIMATION, false);
-        }
     }
 
-    void PlayerJump()
+    private void PlayerJump()
     {
-        if(Input.GetButtonDown("Jump") && grounded) //only press down the button
+        if (Input.GetButtonDown("Jump") && grounded)
         {
             grounded = false;
             myBody.AddForce(new Vector2(0f, ForceJump), ForceMode2D.Impulse);
         }
     }
 
+    //detects if the player touched the enemy. 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag(_ground))
